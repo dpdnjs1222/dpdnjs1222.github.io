@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/16619941/107786641-7c6aed80-6d91-11eb-8846-d5789b04104c.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/16619941/107786653-7ffe7480-6d91-11eb-8df6-1342da38da15.png">
 <meta property="article:published_time" content="2021-02-11T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-02-14T11:55:01.866Z">
+<meta property="article:modified_time" content="2021-02-14T11:59:57.854Z">
 <meta property="article:author" content="Yewon Park">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/16619941/107765448-36079580-6d75-11eb-9d26-f1ac589edb17.png">
@@ -185,7 +185,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-14 20:55:01" itemprop="dateModified" datetime="2021-02-14T20:55:01+09:00">2021-02-14</time>
+                <time title="Modified: 2021-02-14 20:59:57" itemprop="dateModified" datetime="2021-02-14T20:59:57+09:00">2021-02-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,7 +220,8 @@
 <p>disentagled attention 알고리즘은 DeBERTa 논문에서 확인할 수 있다. 논문에서 i번째 토큰과 j번째 토큰의 상대적 거리를 [0, 2k)로 한정하였고 모든 relative position embedding들은 Kr의 부분집합이기 때문에 모든 query에 대해 attention을 구할 때 Kr을 재사용할 수 있다. 이 때문에 relative position embedding 저장 공간 복잡도는 O(N<em>N</em>d)가 아니라 O(kd)이다.  </p>
 <h3 id="2-Enhanced-masked-decoder-EMD"><a href="#2-Enhanced-masked-decoder-EMD" class="headerlink" title="2. Enhanced masked decoder(EMD)"></a>2. Enhanced masked decoder(EMD)</h3><p>DeBERTa는 BERT와 마찬가지로 MLM(masked language model)으로 학습된다. MLM은 마스크 토큰을 예측하기 위해 주변 단어를 사용하기 때문에, Deberta는 위에서 설명한 disentangled attention를 통해 마스크 토큰을 예측하기 위해 주변 단어들의 content와 relative position 정보를 고려할 것이다. 하지만 absolute position 정보는 고려하지 못한다.<br>하지만, 예를 들어 “a new store opened beside the new mall” 이라는 문장에서 “store”과 “mall”을 예측해야 한다면 “store”과 “mall”을 구분하기 위해 content와 relative position 정보만 고려하는 것은 한계가 있다. (둘다 “new” 바로 뒤에 나타나기 때문에 content와 relative position 정보는 같다) “mall”이 아니라 “store”가 주어라는 정보는 absolute position을 봐야한다. 즉, 문법적 정보는 absolute position과 많은 연관이 있다.<br>DeBERTa에서는 Transformer layer와 masked token prediction을 위한 softmax layer 사이에 absolute position 정보를 준다. 이로써 DeBERTa는 transformer layer에서는 relative position 정보를 사용하고 decoder에서 mask token을 예측할 때만 absolute position을 사용한다. 실험적으로 EMD가 성능이 더 좋음을 확인하였으며, 논문에서는 BERT처럼 absolute position을 앞부분(input layer)에 넣어주는 것이 모델이 relative position 정보를 학습하는 것을 방해할 수 있다고 해석하였다.  </p>
 <h3 id="3-Scale-invariant-fine-tuning"><a href="#3-Scale-invariant-fine-tuning" class="headerlink" title="3. Scale invariant fine-tuning"></a>3. Scale invariant fine-tuning</h3><p>입력값에 약간의 변화를 주어 모델의 강건성을 높이는 방법이다. word embedding을 normalization한 다음 약간 변형시킨다. 변형된 입력값으로도 동일한 분포를 내뿜도록 하여 fine tuning 태스크에서 모델이 잘 일반화될 수 있도록 한다.  </p>
-<h2 id="성능"><a href="#성능" class="headerlink" title="성능"></a>성능</h2><p>RoBERTa-large와 비교하여 절반의 학습 데이터로도 NLP task에서 더 좋은 성능을 냈다. 구체적으로는 MNLI에서 0.9%의 성능 향상, SQuAD v2.0에서 2.3%, RACE에서 3.6%의 성능 향상이 있었다. large 버전(transform layer 48개 - 15억개 파라미터)은 SuperGLUE에서 human performance를 능가했고 앙상블 DeBERTa 모델은 SOTA이다.(2021 1/6 기준 90.3, human performance 89.8)<br>((추가정리 필요)) </p>
+<h2 id="성능"><a href="#성능" class="headerlink" title="성능"></a>성능</h2><p>RoBERTa-large와 비교하여 절반의 학습 데이터로도 NLP task에서 더 좋은 성능을 냈다. 구체적으로는 MNLI에서 0.9%의 성능 향상, SQuAD v2.0에서 2.3%, RACE에서 3.6%의 성능 향상이 있었다. large 버전(transform layer 48개 - 15억개 파라미터)은 SuperGLUE에서 human performance를 능가했고 앙상블 DeBERTa 모델은 SOTA이다.(2021 1/6 기준 90.3, human performance 89.8)<br>((추가정리 필요))   </p>
+<hr>
 <p><b id=footnote1>1</b>: “disentangle”의 의미를 알아보기 위해 <a target="_blank" rel="noopener" href="https://deepai.org/machine-learning-glossary-and-terms/disentangled-representation-learning">disentangled representation</a>의 설명을 찾아보았다. 각 feature을 분리된 차원으로 표현하는 것을 의미한다.<br><b id=footnote1>2</b>: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">Transformer</a>, <a target="_blank" rel="noopener" href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1810.04805">Bert</a><br><b id=footnote1>3</b>: <a target="_blank" rel="noopener" href="https://openreview.net/pdf?id=rJe4ShAcF7">Music Transformer</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1906.08237">XLNet</a><br><b id=footnote1>4</b>: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1901.02860">Transformer-xl</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1803.02155">Self-Attention with Relative Position Representations</a><br><b id=footnote1>5</b>: Self-Attention with Relative Position Representations이나 Music Transformer를 참고해야할 것 같다.  </p>
 
     </div>
