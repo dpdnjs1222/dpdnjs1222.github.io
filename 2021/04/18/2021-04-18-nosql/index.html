@@ -21,16 +21,18 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="[알고리즘] 2020 카카오 신입공채 풀어보기 - 문제 1">
-<meta property="og:url" content="https://dpdnjs1222.github.io/2020/10/07/2020-10-07-algo1/index.html">
+<meta property="og:title" content="[Database] NoSQL 개요">
+<meta property="og:url" content="https://dpdnjs1222.github.io/2021/04/18/2021-04-18-nosql/index.html">
 <meta property="og:site_name" content="방예의 블로그">
 <meta property="og:locale">
-<meta property="article:published_time" content="2020-10-06T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-02-14T10:47:24.546Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/40260552/115141321-87cee380-a076-11eb-8403-493e6b4dabe3.png">
+<meta property="article:published_time" content="2021-04-17T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-18T12:53:23.333Z">
 <meta property="article:author" content="Yewon Park">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/40260552/115141321-87cee380-a076-11eb-8403-493e6b4dabe3.png">
 
-<link rel="canonical" href="https://dpdnjs1222.github.io/2020/10/07/2020-10-07-algo1/">
+<link rel="canonical" href="https://dpdnjs1222.github.io/2021/04/18/2021-04-18-nosql/">
 
 
 <script id="page-configurations">
@@ -43,7 +45,7 @@
   };
 </script>
 
-  <title>[알고리즘] 2020 카카오 신입공채 풀어보기 - 문제 1 | 방예의 블로그</title>
+  <title>[Database] NoSQL 개요 | 방예의 블로그</title>
   
 
 
@@ -148,7 +150,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="kor">
-    <link itemprop="mainEntityOfPage" href="https://dpdnjs1222.github.io/2020/10/07/2020-10-07-algo1/">
+    <link itemprop="mainEntityOfPage" href="https://dpdnjs1222.github.io/2021/04/18/2021-04-18-nosql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -161,7 +163,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [알고리즘] 2020 카카오 신입공채 풀어보기 - 문제 1
+          [Database] NoSQL 개요
         </h1>
 
         <div class="post-meta">
@@ -170,23 +172,17 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-10-07 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-07T00:00:00+09:00">2020-10-07</time>
+              <time title="Created: 2021-04-18 00:00:00 / Modified: 21:53:23" itemprop="dateCreated datePublished" datetime="2021-04-18T00:00:00+09:00">2021-04-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-14 19:47:24" itemprop="dateModified" datetime="2021-02-14T19:47:24+09:00">2021-02-14</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                  <a href="/categories/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
                 </span>
             </span>
 
@@ -201,18 +197,73 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><escape><a id="more"></a></escape><br><a target="_blank" rel="noopener" href="https://tech.kakao.com/2019/10/02/kakao-blind-recruitment-2020-round1/">카카오 2020 신입공채 코딩테스트</a>  </p>
-<p>오랜만에 알고리즘 문제를 풀다보니 처음 문제 이해를 잘못하고 접근했다.<br><del>DP를 써야하나 고민하다 그건 아닌것같았고…<br>처음엔 약수로만 나눠서 비교를 할 수 있는 줄 알았다.(tc를 살피면 그럴 수 없을텐데…?)<del>  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">문제 요약  </span><br><span class="line">1. 문자열 압축은 1부터 N&#x2F;2까지 가능하다  </span><br><span class="line">2. 문자열은 제일 앞에서부터 정해진 길이만큼 잘라야한다(TC5)  </span><br><span class="line">3. 가능한 압축 방법 중에 최솟값을 구한다  </span><br></pre></td></tr></table></figure>
-<p>모든 경우의 수를 따지면 N*2의 시간복잡도가 나온다.(한번 볼때마다 최대 2N * N/2가지의 모든 경우를 봐야함)<br>1~N/2의 경우에 대해 앞에서부터 차례대로 비교하면서 문자열이 같으면 same이라는 변수에 저장해놓고 다르면 저장된 same을 꺼내서 압축한다.<br>문자열의 마지막부분은 끝에서 한번 더 처리해준다.  </p>
-<p>이렇게 풀었더니 72점이 나왔다. 왜 그런지 도저히 모르겠어서 다른 사람들이 공유한 tc를 살펴보았다.<br><em>“xxxxxxxxxxyyy”</em><br>1로 압축이 가능하고 10x3y가 나와야한다.<br>하지만 나는 문자열이 같은 경우 단순히 1을 더했고(same &gt; 1인 경우 +1 해주었다)<br>처음에 same 변수도 0으로 초기화하였다. (이러면 비교횟수는 비교하는 문자덩어리 수 보다 1이 작기 때문에 xxxxxxxxxx -&gt; 9x가 나와버린다)  </p>
-<p><strong>그래서 최종적으로 same을 1로 초기화하고 문자열이 같은 경우(same&gt;1) len(str(same))을 추가하였다.</strong>  </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">solution</span>(<span class="params">s</span>):</span></span><br><span class="line">    answer = <span class="built_in">len</span>(s)</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">for</span> div <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">int</span>(<span class="built_in">len</span>(s) / <span class="number">2</span>) + <span class="number">1</span>):</span><br><span class="line">        condensed_string_len = <span class="number">0</span></span><br><span class="line">        next_idx = <span class="number">0</span></span><br><span class="line">        same = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> next_idx + div &lt; <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">if</span> s[next_idx:next_idx+div] == s[next_idx+div:next_idx+<span class="number">2</span>*div]:</span><br><span class="line">                same = same + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                condensed_string_len = condensed_string_len + div</span><br><span class="line">                <span class="keyword">if</span> same &gt; <span class="number">1</span>:</span><br><span class="line">                    condensed_string_len = condensed_string_len + <span class="built_in">len</span>(<span class="built_in">str</span>(same))</span><br><span class="line">                    same = <span class="number">1</span></span><br><span class="line">            next_idx = next_idx + div</span><br><span class="line">        condensed_string_len = condensed_string_len + ((<span class="built_in">len</span>(s) % div) <span class="keyword">if</span> (<span class="built_in">len</span>(s) % div) <span class="keyword">else</span> div)</span><br><span class="line">        <span class="keyword">if</span> same &gt; <span class="number">1</span>:</span><br><span class="line">            condensed_string_len = condensed_string_len + <span class="built_in">len</span>(<span class="built_in">str</span>(same))</span><br><span class="line">        answer = <span class="built_in">min</span>(answer, condensed_string_len)</span><br><span class="line">    <span class="keyword">return</span> answer</span><br></pre></td></tr></table></figure>
-<p>타 소스 리뷰 및 느낀점 :   </p>
-<ol>
-<li>답안을 작성하기 전 문제 파악을 명확히 해야한다.(tc로 문제를 정확히 이해했는지 확인하자)  </li>
-<li>문제에서 직접적으로 언급하지 않은 것 중에 내가 생략한 것이 뭔지 알아야한다. 그러기 위해서는 문제에서 하는 것처럼 최대로 그대로 해볼 필요가 있다. 큰 tc를 만들어 보는것도 좋겠다.  </li>
-</ol>
+        <p><escape><a id="more"></a></escape></p>
+<h2 id="NoSQL이란-무엇인가"><a href="#NoSQL이란-무엇인가" class="headerlink" title="NoSQL이란 무엇인가?"></a>NoSQL이란 무엇인가?</h2><p>NoSQL database 주로 <strong>non-relational database</strong>, 즉 relational table 이외의 포맷으로 데이터를 저장하는 DB를 의미한다. 주의할 점은, NoSQL은 relationship data를 저장하지 못하는 것이 아니라 relational database와는 다른 방식으로 저장한다는 것이다. 오히려 relationship data가 <strong>여러개의 테이블로 나눠질 필요가 없기 때문에</strong> SQL와 비교하여 좀 더 쉽게 모델링할 수 있다.  </p>
+<p><img src="https://user-images.githubusercontent.com/40260552/115141321-87cee380-a076-11eb-8403-493e6b4dabe3.png" alt="CostPerMb"></p>
+<p>2000년대 후반, storage 비용이 급격히 감소하는 대신 <strong>어마어마하게 많은 양과 unstructured 데이터 저장의 필요성이 증가</strong>했고 NoSQL은 유연하게 이를 가능하게 했다. 또한, Agile 개발방법론이 대세가 됨에 따라 변하는 요구사항에 쉽게 적응할 수 있는 NoSQL이 각광받았다.   </p>
+<h4 id="SQL이란-무엇인가"><a href="#SQL이란-무엇인가" class="headerlink" title="SQL이란 무엇인가?"></a>SQL이란 무엇인가?</h4><p>전통적으로 인기있는 database는 <strong>relational database</strong>이었다. relational database는 <strong>고정된 column과 row를 가지는 테이블</strong>에 data가 저장되는 것으로 SQL(Structured Query Language)를 통해 접근된다. 1970년대, storage 비용이 매우 비싼 시기엔 <strong>data duplication을 줄이기 위해</strong> db를 normalize했다. 또한 그 시기엔 waterfall development 방식이 주로 사용되었기 때문에 개발 전 복잡한 ER 다이어그램(entity-relationship)을 만들었다. 하지만 이러한 방식은 요구사항이 바뀌는 경우 많은 비용을 유발하였다. </p>
+<h2 id="NoSQL-데이터베이스의-종류"><a href="#NoSQL-데이터베이스의-종류" class="headerlink" title="NoSQL 데이터베이스의 종류"></a>NoSQL 데이터베이스의 종류</h2><ul>
+<li>document database : <strong>document</strong>(JSON과 유사)에 데이터를 저장, 각 document는 field와 value의 쌍으로 구성되고 value는 문자열부터 객체까지 다양한 타입을 가짐. ex) MongoDB  </li>
+<li>key-value database : <strong>key, value 쌍</strong>으로 구성, 간단한 query로 방대한 데이터 처리, user preference나 caching에 주로 사용. ex) Redis, DynanoDB  </li>
+<li>wide-column stores : 각 row가 같은 column을 가질 필요 없음(<strong>dynamic columns</strong>), 방대한 데이터 처리 with predictable query patterns. ex) HBase, Cassandra  </li>
+<li>graph databases : <strong>node와 edge</strong> 사용, 관계(SNS, fraud detection, recommendation) 파악에 유용. ex) Neo4j, JanusGraph  </li>
+</ul>
+<h2 id="SQL-vs-NoSQL"><a href="#SQL-vs-NoSQL" class="headerlink" title="SQL vs NoSQL"></a>SQL vs NoSQL</h2><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>SQL</th>
+<th>NoSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>모델</td>
+<td>테이블(고정된 열과 행)</td>
+<td>document, key-value, wide-column, graph</td>
+</tr>
+<tr>
+<td>배경</td>
+<td>데이터 중복 제거</td>
+<td>확장성, 애자일</td>
+</tr>
+<tr>
+<td>예시</td>
+<td>Oracle, MySQL, Microsoft SQL Server, PostgreSQL</td>
+<td>MongoDB and CouchDB, Redis and DynamoDB, Cassandra and HBase, Neo4j</td>
+</tr>
+<tr>
+<td>스키마</td>
+<td>고정</td>
+<td>융통성있음</td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td>수직적</td>
+<td>수평적</td>
+</tr>
+<tr>
+<td>Multi-Record ACID(atomicity, consistency, isolation, durability) Transactions</td>
+<td>지원</td>
+<td>일부 지원(MongoDB)</td>
+</tr>
+<tr>
+<td>Joins</td>
+<td>필요</td>
+<td>필요하지 않음</td>
+</tr>
+<tr>
+<td>Data to Object mapping</td>
+<td>ORM(object-relational mapping)</td>
+<td>ORM 필요 X(mongoDB는 직접적으로 mapping)</td>
+</tr>
+</tbody></table>
+<h2 id="NoSQL-장점"><a href="#NoSQL-장점" class="headerlink" title="NoSQL 장점"></a>NoSQL 장점</h2><ul>
+<li>flexible data models : 요구사항이 변함에 따라 database를 바꾸기 쉬움 </li>
+<li>horizontal scaling : 성능이 더 좋은 서버가 기존 서버를 대체하는 scale-up model이 아닌 기존의 서버 옆에 추가 서버를 배치하는 <strong>scale-out model</strong>  </li>
+<li>fast queries : SQL은 normalize되어있기 때문에 여러 테이블을 join해야하지만 NoSQL은 <strong>query에 최적화</strong>되어있음(같이 접근되는 데이터는 같이 저장됨)</li>
+<li>easy for developers : application에서 사용되는 방식과 같은 구조로 저장되기 때문에 구현이 편리함</li>
+</ul>
+<h4 id="참고자료"><a href="#참고자료" class="headerlink" title="참고자료"></a>참고자료</h4><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/nosql-explained/nosql-vs-sql">NoSQL vs SQL Databases</a><br><a target="_blank" rel="noopener" href="https://www.mongodb.com/nosql-explained">What is NoSQL?</a></p>
 
     </div>
 
@@ -227,10 +278,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/10/14/2020-10-14-algo4/" rel="next" title="[알고리즘] 2020 카카오 신입공채 풀어보기 - 문제 4">
-      [알고리즘] 2020 카카오 신입공채 풀어보기 - 문제 4 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/02/14/2021-02-14-book1/" rel="prev" title="[책리뷰] 알랭드 보통 - 왜 나는 너를 사랑하는가">
+      <i class="fa fa-chevron-left"></i> [책리뷰] 알랭드 보통 - 왜 나는 너를 사랑하는가
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/18/2021-04-18-redis/" rel="next" title="[Database] Redis 개요">
+      [Database] Redis 개요 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -290,6 +344,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NoSQL%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80"><span class="nav-number">1.</span> <span class="nav-text">NoSQL이란 무엇인가?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80"><span class="nav-number">1.0.1.</span> <span class="nav-text">SQL이란 무엇인가?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NoSQL-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%9D%98-%EC%A2%85%EB%A5%98"><span class="nav-number">2.</span> <span class="nav-text">NoSQL 데이터베이스의 종류</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-vs-NoSQL"><span class="nav-number">3.</span> <span class="nav-text">SQL vs NoSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NoSQL-%EC%9E%A5%EC%A0%90"><span class="nav-number">4.</span> <span class="nav-text">NoSQL 장점</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C"><span class="nav-number">4.0.1.</span> <span class="nav-text">참고자료</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
