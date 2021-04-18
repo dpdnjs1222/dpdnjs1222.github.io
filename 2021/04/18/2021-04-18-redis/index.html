@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="방예의 블로그">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-04-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-04-18T06:56:52.024Z">
+<meta property="article:modified_time" content="2021-04-18T07:04:36.216Z">
 <meta property="article:author" content="Yewon Park">
 <meta name="twitter:card" content="summary">
 
@@ -172,7 +172,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-18 00:00:00 / Modified: 15:56:52" itemprop="dateCreated datePublished" datetime="2021-04-18T00:00:00+09:00">2021-04-18</time>
+              <time title="Created: 2021-04-18 00:00:00 / Modified: 16:04:36" itemprop="dateCreated datePublished" datetime="2021-04-18T00:00:00+09:00">2021-04-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -180,7 +180,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DB-Redis/" itemprop="url" rel="index"><span itemprop="name">DB Redis</span></a>
+                  <a href="/categories/DB-Redis/" itemprop="url" rel="index"><span itemprop="name">DB, Redis</span></a>
                 </span>
             </span>
 
@@ -196,7 +196,7 @@
 
       
         <p><escape><a id="more"></a></escape></p>
-<h2 id="Redis란-무엇인가"><a href="#Redis란-무엇인가" class="headerlink" title="Redis란 무엇인가?"></a>Redis란 무엇인가?</h2><p>Remote Dictionary Server. 메모리를 사용하는(in-memory) key, value 형식의 데이터베이스이다. database, cache, message broker에 사용될 수 있다.<br><a target="_blank" rel="noopener" href="https://redis.io/topics/introduction">Redis Introduction</a></p>
+<h2 id="Redis란-무엇인가"><a href="#Redis란-무엇인가" class="headerlink" title="Redis란 무엇인가?"></a>Redis란 무엇인가?</h2><p>Remote Dictionary Server. in-memory 기반 key, value 형식의 데이터베이스이다. database, cache, message broker에 사용될 수 있다.<br><a target="_blank" rel="noopener" href="https://redis.io/topics/introduction">Redis Introduction</a></p>
 <h2 id="Redis의-주요-특징"><a href="#Redis의-주요-특징" class="headerlink" title="Redis의 주요 특징"></a>Redis의 주요 특징</h2><ol>
 <li><p>key-value 스토어   </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set id:username &quot;username&quot;</span><br><span class="line">get id:username </span><br></pre></td></tr></table></figure></li>
@@ -213,20 +213,10 @@
 </ol>
 <h2 id="Redis-사용-Caching-Database-Server"><a href="#Redis-사용-Caching-Database-Server" class="headerlink" title="Redis 사용 : Caching Database Server"></a>Redis 사용 : Caching Database Server</h2><p>Redis는 메모리를 사용하기 때문에 속도가 매우 빠르지만 공간이 크지 않고 복잡한 데이터베이스에 적합하지 않다. 이러한 특성 때문에 Redis는 주 데이터베이스보다 보조 데이터베이스 역할로 활용될 수 있다. Caching은 미리 읽어두었다가 요청이 올 경우 빠르게 응답하는 목적을 지니며, 전체 데이터가 필요 없기 때문에 Redis를 사용하기 적합하다.  </p>
 <ul>
-<li><p>Read 요청 시<br>서버 요청 -&gt; Redis 서버에서 요청 데이터가 있는지 확인   </p>
-</li>
-<li><blockquote>
-<p>(데이터가 존재하는 경우) 만료여부 확인 후 이 정보 반환 -&gt; 현재 시간으로 업데이트 후 종료  </p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>(데이터가 만료되었거나 없는 경우) 삭제 후 주 서버에 요청 -&gt; 주 서버에서 받은 데이터를 캐싱 -&gt; 이 값을 방문자에게 반환 후 종료  </p>
-</blockquote>
-</li>
-<li><p>Create, Update, Delete 요청 시<br>데이터에 변화가 생겼으므로 캐싱 값이 아닌 실시간 정보를 보내주는 것이 효과적<br>서버 요청 -&gt; CUD 요청을 주서버에 반영 -&gt; 변경된 데이터 값을 Redis에서 찾아 삭제 후 종료</p>
-</li>
+<li>Read 요청 시 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">서버 요청 &#x3D;&gt; Redis 서버에서 요청 데이터가 있는지 확인   </span><br><span class="line">&#x3D;&gt; (데이터가 존재하는 경우) 만료여부 확인 후 이 정보 반환 &#x3D;&gt; 현재 시간으로 업데이트 후 종료  </span><br><span class="line">&#x3D;&gt; (데이터가 만료되었거나 없는 경우) 삭제 후 주 서버에 요청 &#x3D;&gt; 주 서버에서 받은 데이터를 캐싱 &#x3D;&gt; 이 값을 방문자에게 반환 후 종료  </span><br></pre></td></tr></table></figure></li>
+<li>Create, Update, Delete 요청 시<br>데이터에 변화가 생겼으므로 캐싱 값이 아닌 실시간 정보를 보내주는 것이 효과적  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">서버 요청 &#x3D;&gt; CUD 요청을 주서버에 반영 &#x3D;&gt; 변경된 데이터 값을 Redis에서 찾아 삭제 후 종료</span><br></pre></td></tr></table></figure>
+<h2 id="Redis와-Memchached-비교"><a href="#Redis와-Memchached-비교" class="headerlink" title="Redis와 Memchached 비교"></a>Redis와 Memchached 비교</h2>Memcached는 캐시 솔루션이고 Memcached에 저장소 개념이 추가된 것인 Redis이다. ‘캐시’는 빠른 속도를 위해 어떤 결과를 저장해두는 것을 의미하기 때문에 데이터가 사라지면 다시 만들 수 있다. 하지만 저장소의 개념이 추가된 Redis의 경우 ‘데이터가 유지되어야 한다’는 특성 때문에 RDB, AOF, Replication이 추가 되었다.  </li>
 </ul>
-<h2 id="Redis와-Memchached-비교"><a href="#Redis와-Memchached-비교" class="headerlink" title="Redis와 Memchached 비교"></a>Redis와 Memchached 비교</h2><p>Memcached는 캐시 솔루션이고 Memcached에 저장소 개념이 추가된 것인 Redis이다. ‘캐시’는 빠른 속도를 위해 어떤 결과를 저장해두는 것을 의미하기 때문에 데이터가 사라지면 다시 만들 수 있다. 하지만 저장소의 개념이 추가된 Redis의 경우 ‘데이터가 유지되어야 한다’는 특성 때문에 RDB, AOF, Replication이 추가 되었다.  </p>
 <table>
 <thead>
 <tr>
@@ -257,7 +247,7 @@
 </tr>
 </tbody></table>
 <p>Redis는 jemalloc을 사용하는데 매번 malloc과 free를 통해 메모리 할당이 이루어진다. 반면 Memcached는 slab 할당자를 이용하여 내부적으로는 메모리 할당을 다시 하지 않고 관리하는 형태를 취한다. 이로 인해 Redis는 메모리 프래그멘테이션(fragmentation) 등이 발생하며 이 할당 비용 때문에 응답 속도가 느려질 수 있다. </p>
-<h4 id="참고자료"><a href="#참고자료" class="headerlink" title="참고자료"></a>참고자료</h4><p><a target="_blank" rel="noopener" href="http://preview.hanbit.co.kr/2647/sample_ebook.pdf">Redis 성능 관리 : Redis를 실무에 사용하기 전에 꼭 알아야 하는 실전 전략</a><br><a target="_blank" rel="noopener" href="https://webisfree.com/2017-10-26/redis-%EB%A0%88%EB%94%94%EC%8A%A4%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BA%90%EC%8B%B1%EC%84%9C%EB%B2%84-%EC%9A%B4%EC%98%81%ED%95%98%EA%B8%B0">Redis, 레디스를 사용한 데이터베이스 캐싱서버 운영하기</a><br><a target="_blank" rel="noopener" href="https://codingmania.tistory.com/18">Redis 개념 및 특징</a><br><a target="_blank" rel="noopener" href="https://americanopeople.tistory.com/148">CacheRedis vs Memcached</a></p>
+<h4 id="참고자료"><a href="#참고자료" class="headerlink" title="참고자료"></a>참고자료</h4><p><a target="_blank" rel="noopener" href="http://preview.hanbit.co.kr/2647/sample_ebook.pdf">Redis 성능 관리 : Redis를 실무에 사용하기 전에 꼭 알아야 하는 실전 전략</a><br><a target="_blank" rel="noopener" href="https://webisfree.com/2017-10-26/redis-%EB%A0%88%EB%94%94%EC%8A%A4%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%BA%90%EC%8B%B1%EC%84%9C%EB%B2%84-%EC%9A%B4%EC%98%81%ED%95%98%EA%B8%B0">Redis, 레디스를 사용한 데이터베이스 캐싱서버 운영하기</a><br><a target="_blank" rel="noopener" href="https://codingmania.tistory.com/18">Redis 개념 및 특징</a> - TBD<br><a target="_blank" rel="noopener" href="https://americanopeople.tistory.com/148">CacheRedis vs Memcached</a> - TBD</p>
 
     </div>
 
