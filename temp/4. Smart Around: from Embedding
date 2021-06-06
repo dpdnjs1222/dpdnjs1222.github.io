@@ -1,0 +1,45 @@
+4. Smart Around: from Embedding
+to POI Recommendation
+- Naver의 새로운 서비스인 Smart Around에서 관심영역을 잘 추천해주는 문제
+- 한 장소(예 강남역)에서 주변 맛집 검색을 누르면 알아서 주변 맛집을 추천해줌
+- 유저의 성향이 다르지만 한장소에 가면 같은 결과만 나옴. 유저의 취향을 반영하고 싶음
+- POI : Point Of Interest 관심지점
+- 문제 1 : 우선 단어 Embedding
+	지역별, 음식점은 잘 구분 되나, 배달업체는 한곳에 뭉치게 됨
+	또한 골목과 백종원이 같이 있는 현상도 발견
+	해결책 : Embedding 학습할때 특정단어를 강제로 거리를 벌려주는 Discriminator를 추가후 학습
+- 문제2 : 유저의도를 파악하기 위해서 feature 추가(체류시간, 가격등)
+	체류시간은 보통 input vector에 concatenate하지만 elementwise product를 함
+- 문제3 : scale up을 하니 추천대상이 많아 지니 학습 안됨. 적당한 선으로 scale down을 해서 사용
+- 요약 : word embedding, lstm 등 여러 알고리즘을 섞어서 결과를 도출. 검색 결과를 개인화해서 제대로 배치함으로써 매출액 증가에 기여(인공지능을 통한 개인화도 흥미로움)
+
+호로보드, xla, fp16
+
+- bert
+
+- 추천 / POI
+
+- embedding
+
+
+https://europe.naverlabs.com/wp-content/uploads/2019/04/Did-It-Change-Learning-to-Detect-Point-of-Interest-Changes-for-Proactive-Map-Updates.pdf
+
+https://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/viewFile/14902/13749
+
+https://deview.kr/data/deview/session/attach/1600_T1_%EC%A0%84%EC%98%81%ED%99%98_%EB%8B%B9%EC%8B%A0%20%EC%B7%A8%ED%96%A5%EC%9D%98%20%EB%A7%9B%EC%A7%91%EC%9D%84%20%EC%B6%94%EC%B2%9C%ED%95%B4%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4_%EC%9E%A5%EC%86%8C%20%EA%B0%9C%EC%9D%B8%ED%99%94%20%EC%B6%94%EC%B2%9C%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%9D%98%20%EB%B9%84%EB%B0%80.pdf
+
+
+
+
+개인화된 맞춤형 장소 추천
+현위치, 시간, 연령/성별
++ 사용자 선호 분위기, 메뉴, 업종
+
+
+
+
+
+개인 데이터
+패턴 ex) 마라상궈 -> 훠궈 -> ? / 
+(자주 찾는 음식종류가 있는지, 매번 다른 맛집을 가는지)
+가는 곳을 파악하여 역으로 공통점을 파악함**

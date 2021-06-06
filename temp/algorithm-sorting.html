@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dpdnjs1222.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="#버블정렬Θ ( n 2 )예제)55 07 78 12 42  초기값[파란색은 sorting]07 55 78 12 42  첫 번째 패스(pass)07 55 78 12 4207 55 12 78 4207 55 12 42 78  두 번째 패스(pass)07 55 12 42 7807 12 55 42 7807 12 42 55 78  세 번째 패스(pass)07 12 4">
+<meta property="og:type" content="website">
+<meta property="og:title" content="방예의 블로그">
+<meta property="og:url" content="https://dpdnjs1222.github.io/temp/algorithm-sorting.html">
+<meta property="og:site_name" content="방예의 블로그">
+<meta property="og:description" content="#버블정렬Θ ( n 2 )예제)55 07 78 12 42  초기값[파란색은 sorting]07 55 78 12 42  첫 번째 패스(pass)07 55 78 12 4207 55 12 78 4207 55 12 42 78  두 번째 패스(pass)07 55 12 42 7807 12 55 42 7807 12 42 55 78  세 번째 패스(pass)07 12 4">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-04-22T13:32:27.697Z">
+<meta property="article:modified_time" content="2021-04-22T13:32:27.697Z">
+<meta property="article:author" content="Yewon Park">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://dpdnjs1222.github.io/temp/algorithm-sorting">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'kor'
+  };
+</script>
+
+  <title> | 방예의 블로그
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">방예의 블로그</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="kor">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>#버블정렬<br>Θ ( n 2 )<br>예제)<br>55 07 78 12 42  초기값[파란색은 sorting]<br>07 55 78 12 42  첫 번째 패스(pass)<br>07 55 78 12 42<br>07 55 12 78 42<br>07 55 12 42 78  두 번째 패스(pass)<br>07 55 12 42 78<br>07 12 55 42 78<br>07 12 42 55 78  세 번째 패스(pass)<br>07 12 42 55 78  네 번째 패스(pass)<br>07 12 42 55 78  다섯 번째 패스(pass)<br>07 12 42 55 78  정렬 끝</p>
+<p>sudo-code<br>‘’’<br>def bubbleSort(x):<br>    length = len(x)-1<br>    for i in range(length):<br>        for j in range(length-i):<br>            if x[j] &gt; x[j+1]:<br>                x[j], x[j+1] = x[j+1], x[j]<br>    return x<br>‘’’</p>
+<p><a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EA%B1%B0%ED%92%88_%EC%A0%95%EB%A0%AC">https://ko.wikipedia.org/wiki/%EA%B1%B0%ED%92%88_%EC%A0%95%EB%A0%AC</a></p>
+<p>#선택정렬<br>Θ ( n 2 )<br>예제)<br>패스    테이블    최솟값<br>0    [9,1,6,8,4,3,2,0]    0<br>1    [0,1,6,8,4,3,2,9]    1<br>2    [0,1,6,8,4,3,2,9]    2<br>3    [0,1,2,8,4,3,6,9]    3<br>4    [0,1,2,3,4,8,6,9]    4<br>5    [0,1,2,3,4,8,6,9]    6<br>6    [0,1,2,3,4,6,8,9]    8</p>
+<p>sudo-code</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i &#x3D; 0 to n:</span><br><span class="line">    a[i]부터 a[n - 1]까지 차례로 비교하여 가장 작은 값이 a[j]에 있다고 하자.</span><br><span class="line">    a[i]와 a[j]의 값을 서로 맞바꾼다.</span><br></pre></td></tr></table></figure>
+<p>파이썬</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def selectionSort(x):</span><br><span class="line">	length &#x3D; len(x)</span><br><span class="line">	for i in range(length-1):</span><br><span class="line">	    indexMin &#x3D; i</span><br><span class="line">		for j in range(i+1, length):</span><br><span class="line">			if x[indexMin] &gt; x[j]:</span><br><span class="line">				indexMin &#x3D; j</span><br><span class="line">		x[i], x[indexMin] &#x3D; x[indexMin], x[i]</span><br><span class="line">	return x</span><br></pre></td></tr></table></figure>
+<p>삽입정렬</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def insertion_sort(arr):</span><br><span class="line">    for end in range(1, len(arr)):</span><br><span class="line">        for i in range(end, 0, -1):</span><br><span class="line">            if arr[i - 1] &gt; arr[i]:</span><br><span class="line">                arr[i - 1], arr[i] &#x3D; arr[i], arr[i - 1]</span><br></pre></td></tr></table></figure>
+
+
+<p>병합정렬</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">def merge_sort(list):</span><br><span class="line">    if len(list) &lt;&#x3D; 1:</span><br><span class="line">        return list</span><br><span class="line">    mid &#x3D; len(list) &#x2F;&#x2F; 2</span><br><span class="line">    leftList &#x3D; list[:mid]</span><br><span class="line">    rightList &#x3D; list[mid:]</span><br><span class="line">    leftList &#x3D; merge_sort(leftList)</span><br><span class="line">    rightList &#x3D; merge_sort(rightList)</span><br><span class="line">    return merge(leftList, rightList)</span><br><span class="line"></span><br><span class="line">def merge(left, right):</span><br><span class="line">    result &#x3D; []</span><br><span class="line">    while len(left) &gt; 0 or len(right) &gt; 0:</span><br><span class="line">        if len(left) &gt; 0 and len(right) &gt; 0:</span><br><span class="line">            if left[0] &lt;&#x3D; right[0]:</span><br><span class="line">                result.append(left[0])</span><br><span class="line">                left &#x3D; left[1:]</span><br><span class="line">            else:</span><br><span class="line">                result.append(right[0])</span><br><span class="line">                right &#x3D; right[1:]</span><br><span class="line">        elif len(left) &gt; 0:</span><br><span class="line">            result.append(left[0])</span><br><span class="line">            left &#x3D; left[1:]</span><br><span class="line">        elif len(right) &gt; 0:</span><br><span class="line">            result.append(right[0])</span><br><span class="line">            right &#x3D; right[1:]</span><br><span class="line">    return result</span><br></pre></td></tr></table></figure>
+
+<p>#퀵소트</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def quick_sort(ARRAY):</span><br><span class="line">    ARRAY_LENGTH &#x3D; len(ARRAY)</span><br><span class="line">    if( ARRAY_LENGTH &lt;&#x3D; 1):</span><br><span class="line">        return ARRAY</span><br><span class="line">    else:</span><br><span class="line">        PIVOT &#x3D; ARRAY[0]</span><br><span class="line">        GREATER &#x3D; [ element for element in ARRAY[1:] if element &gt; PIVOT ]</span><br><span class="line">        LESSER &#x3D; [ element for element in ARRAY[1:] if element &lt;&#x3D; PIVOT ]</span><br><span class="line">        return quick_sort(LESSER) + [PIVOT] + quick_sort(GREATER)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://ratsgo.github.io/data%20structure&amp;algorithm/2017/09/28/quicksort/">https://ratsgo.github.io/data%20structure&amp;algorithm/2017/09/28/quicksort/</a></p>
+<p>#힙정렬<br>힙 : <a target="_blank" rel="noopener" href="https://gmlwjd9405.github.io/2018/05/10/data-structure-heap.html">https://gmlwjd9405.github.io/2018/05/10/data-structure-heap.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">완전 이진 트리의 일종으로 우선순위 큐를 위하여 만들어진 자료구조이다.</span><br><span class="line">여러 개의 값들 중에서 최댓값이나 최솟값을 빠르게 찾아내도록 만들어진 자료구조이다.</span><br><span class="line">힙은 일종의 반정렬 상태(느슨한 정렬 상태) 를 유지한다.</span><br><span class="line">큰 값이 상위 레벨에 있고 작은 값이 하위 레벨에 있다는 정도</span><br><span class="line">간단히 말하면 부모 노드의 키 값이 자식 노드의 키 값보다 항상 큰(작은) 이진 트리를 말한다.</span><br><span class="line">힙 트리에서는 중복된 값을 허용한다. (이진 탐색 트리에서는 중복된 값을 허용하지 않는다.)</span><br><span class="line">https:&#x2F;&#x2F;gmlwjd9405.github.io&#x2F;2018&#x2F;05&#x2F;10&#x2F;data-structure-heap.html</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yewon Park</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yewon Park</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
